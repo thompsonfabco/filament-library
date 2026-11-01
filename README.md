@@ -16,6 +16,7 @@ library/<vendor>/<product>.json  one entry per brand + product line (slugs: lowe
 schema/entry.schema.json         entry format, schema_version 1
 tools/                           stdlib Python: validate, build_index, import_batch, convert_specs (seed)
 conversion-report.md             what the one-time seed conversion changed
+research/unreachable.md          lines and values the automated fetch could not source (for Research mode)
 ```
 
 ## How entries are sourced
