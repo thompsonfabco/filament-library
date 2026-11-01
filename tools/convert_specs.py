@@ -1,4 +1,4 @@
-"""One-time seed: convert SV08MAX-Orca-Scripts/filament_profiles/specs.json into library/ entries.
+"""One-time seed: convert filament-ops/specs.json into library/ entries.
 
     py -3.10 -I tools/convert_specs.py [specs.json] [lines.py]
 
@@ -19,7 +19,7 @@ import ast, json, os, sys, urllib.parse
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import fl, build_index
 
-DEFAULT_DIR = r"C:\CODING\SV08MAX-Orca-Scripts\filament_profiles"
+DEFAULT_DIR = r"C:\CODING\filament-ops"
 
 
 def load_lines(path):
