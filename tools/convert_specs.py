@@ -1,4 +1,4 @@
-"""One-time seed: convert SV08MAX-Orca-Scripts/filament_profiles/specs.json into library/ entries.
+"""One-time seed: convert filament-ops/specs.json into library/ entries.
 
     py -3.10 -I tools/convert_specs.py [specs.json] [lines.py]
 
