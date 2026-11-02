@@ -776,3 +776,102 @@ re-importing the full entry (same vendor + product spelling).
 - [push-plastic] Push Plastic Matte ABS - its only source is the product page, which returned HTTP 429 on every try; the only value it had was diameter 1.75
 - [push-plastic] Push Plastic TPU 100A - nozzle 230-250, bed 60-80, 100A hardness and 0.6mm nozzle advice all come only from the product page, which returned HTTP 429; the cited TPU 98A sheet and TDS describe a different hardness, so they don't support values for this line
 - [geeetech] GEEETECH Carbon Fiber PLA - the only cited source is the generic material-guide section on wiki.geeetech.com. No GEEETECH product page exists for this line (the only listings found are on the 3djake reseller), so it has no sourced values for this product line.
+
+## Still open after Research gap-fill runs R1-R5 (2026-11-02)
+
+R1-R5 (brand groups as in `research/parallel-research-R2-R5.md`) added 92 lines and refreshed 66; they were imported
+with `import_batch.py --merge`, so values a reply did not re-read were kept. What the replies could not fill:
+
+### R1
+
+- **Bambu PLA Lite:** no official Bambu-hosted TDS was found; search returned only the bigdipper.com.ar sheet and third-party databases. The existing values remain reseller-sourced.
+- **Bambu PLA Silk Multi-Color:** the current product name was not confirmed this run.
+- **Bambu PAHT-CF V3.0 values:** the wiki.bambulab.com V3.0 PDF returned a client error, so the check is still pending. V2.0 extras (HDT 170 °C at 1.8 MPa, fan 0-40%, chamber 45-60 °C, from a reseller copy) are recorded in `_notes` only.
+- **Bambu PETG Matte and PPA-CF fan range:** neither TDS publishes one; both say only "Turn on".
+- **Bambu store product pages and catalogue for all lines:** not systematically read. Diameter tolerance was captured only for PLA Basic Gradient, PETG Matte, PPA-CF and PAHT-CF. The discontinued status of ASA-CF and TPU 95A was not confirmed. PETG Matte is the only 2026 launch identified (dated 28 September 2026 by Bambu's own forum post).
+- **Polymaker Fiberon PET-GF15:** Tg and Vicat are filled; HDT values conflict between sources and are listed in `conflicts`. The original TDS PDF could not be fetched.
+- **Polymaker Matte PLA for Production HDT:** not reached.
+- **eSUN HDT for PLA, PLA-Matte Dual, ASA+ and ePAHT-CF; PETG-Matte drying hours:** not reached.
+- **eSUN lines not reached:** ePA-GF (only a 2017 news note giving a distortion temperature of 120 °C), PLA-UV Color Change (the parameter table did not load), PLA-Magic (density 1.21 only, too little for an entry). Not attempted: PLA CMYK, PLA-Clear Rainbow, Luminous PLA Rainbow, eClean, ePEEK Pro, PEEK-Industrial and PETG Refilament.
+- **eSUN official_page upgrade for previously written entries:** esun3d.com is reachable now, but those entries were not re-imported this run.
+- **Polymaker PC-PBT:** Polymaker's wiki says "PC-PBT is currently not being manufactured or sold and is discontinued."
+- **eSUN ABS Odorless:** the official page says "This product has been discontinued and is out of stock." Its last published figures: density 1.04, HDT 73 °C, extruder 240-250 °C, bed 95-110 °C.
+- **eSUN PET:** the official page says it is discontinued and points to PET-Basic.
+- **Bambu PA-CF:** Bambu's store says "PA-CF was discontinued" and PAHT-CF is its upgrade.
+
+### R2
+
+- **SUNLU (all lines written) - drying hours, filament_max_volumetric_speed** - Still unpublished: SUNLU product pages/TDS give drying temperature only; store.sunlu.com dryer guide has no per-material time table in text (comparison table is an image); no SUNLU source publishes max volumetric speed. No SUNLU entries re-written since no new values were found.
+- **OVERTURE Turbo PLA - colors** - Partly filled: only 'Plaster White' confirmed on an official Turbo PLA page; the main product URL redirects and the line appears renamed 'High Speed PLA' (unconfirmed). Amazon B07PGY2JP1 colour list recorded in _notes only.
+- **JAYO High Speed PLA - nozzle temp, bed temp, density** - Not published in any text source (jayo3d.com page, JAYO Official Store Amazon B0DGSSGWVJ / B0DHRXQT74); possibly in images only.
+- **JAYO ASA - nozzle, bed, density, HDT** - JAYO Official Store Amazon listing B0GMVGBLXB has no temps/density/HDT in bullets or technical details; only diameter and +/-0.02 tolerance (tolerance question resolved).
+- **JAYO Easy PA (E-PA) / PA Nylon PA6+66 - density, drying, tolerance value** - Not published in the JAYO Official Store listing; temps/bed/HDT/speed were filled.
+- **Creality Hyper PETG - density, HDT** - No official TDS reachable; not on official page or the Creality CL Store Amazon listing.
+- **Creality Hyper PLA - nozzle/bed temp ranges, density** - Not in the Amazon bullets or store.creality.com page text (only K2 Plus single slicer values, kept in _notes). Conflict detail (seller, tolerance) resolved.
+- **Prusament PETG Carbon Fiber - density, fan speed, max print speed, HDT 0.45/1.80 MPa** - Official TDS only as zip on prusament.com (blocked from sandbox, too large for WebFetch); no reseller TDS copy found. Reseller product page values noted in conflicts only.
+- **Kingroon TPU 95A - retraction speed** - The only TPU TDS prints it truncated in the source itself ('10- 30mm/'); no other official source gives it.
+- **Kingroon TPU 95A - hardness/TDS match** - TDS (filename ..._tpu_95a_...) is titled 'TPU 90A' with no Shore value; store page says 95A. Mismatch remains unresolved; entry written with this flagged.
+- **Kingroon PA6-CF / PA-CF - drying, diameter tolerance, hardened nozzle, enclosure** - Only on Amazon B0DQPDTD2Z, whose seller (Hongshengqi) is not confirmed as Kingroon's official store; recorded in conflicts/_notes only.
+- **Kingroon PLA Basic _nozzle_by_speed** - kingroon3d.com PLA Basic page (read 2026-11-02) shows only one nozzle range (190-210); speed-dependent ranges not found, so not confirmed.
+- **Kingroon PLA Silk Dual-Color / PLA Glow / PLA Wood / ABS - product-page notes and colours** - Entries written from TDS; their product pages were not re-read this run (rate-limit budget), so page-derived notes and colour lists were not re-confirmed.
+- **Inland PLA High Speed Silk** - microcenter.com returns 403 to WebFetch; opening it in the user's Chrome was refused by the permission system (bot-check circumvention), so not attempted further; the line is not sold on Amazon by Micro Center (Amazon search found only Inland PLA+, PLA+ High Speed and PLA Basics) and no Inland TDS PDF exists
+- **Inland PLA Dual Color Silk** - microcenter.com returns 403 to WebFetch; opening it in the user's Chrome was refused by the permission system (bot-check circumvention), so not attempted further; the line is not sold on Amazon by Micro Center (Amazon search found only Inland PLA+, PLA+ High Speed and PLA Basics) and no Inland TDS PDF exists
+- **Inland PLA+ Multi Color (CMYK set)** - microcenter.com returns 403 to WebFetch; opening it in the user's Chrome was refused by the permission system (bot-check circumvention), so not attempted further; the line is not sold on Amazon by Micro Center (Amazon search found only Inland PLA+, PLA+ High Speed and PLA Basics) and no Inland TDS PDF exists; the plate 45-60 vs 45 conflict stays open (the single-colour PLA+ Amazon listing says bed 45-60, but the CMYK set listing itself was not read)
+- **Inland ABS UV Luminous (glow)** - microcenter.com returns 403 to WebFetch; opening it in the user's Chrome was refused by the permission system (bot-check circumvention), so not attempted further; the line is not sold on Amazon by Micro Center (Amazon search found only Inland PLA+, PLA+ High Speed and PLA Basics) and no Inland TDS PDF exists
+- **Inland PETG-CF** - microcenter.com returns 403 to WebFetch; opening it in the user's Chrome was refused by the permission system (bot-check circumvention), so not attempted further; the line is not sold on Amazon by Micro Center (Amazon search found only Inland PLA+, PLA+ High Speed and PLA Basics) and no Inland TDS PDF exists
+- **Inland Silk PLA** - Amazon B09FW2HVJJ read: bullets give nozzle 190-230, bed 60-80, tolerance +/-0.05 in the bullet (title says +/-0.03), wax-sealed cardboard spool edge for AMS/CFS. Listing is currently unavailable with no seller shown, so it does not qualify as brand_amazon_listing; no entry written. Use these as verified conflict text for the existing entry.
+- **Inland (all lines) - density, drying, Tg/HDT, max volumetric speed** - Not published in any Inland source reached (Micro Center Amazon listings for PLA+, PLA+ High Speed, PLA Basics carry none; no Inland TDS found). Only filled for Fiberon ASA-CF08, from Polymaker's TDS.
+- **Inland Amazon listings (brand listing route) - other lines** - B00YSZ1MFU (Translucent PETG) is unavailable with no bullets. Inland PLA Basics (B0F2GNJ7WJ, sold by Micro Center) gives +/-0.02 and spool size but no temperatures. Other Inland lines are not on Amazon.
+- **Inland (all 19 lines) - live-page check** - microcenter.com returns 403 to WebFetch; opening it in the user's Chrome was refused by the permission system (bot-check circumvention), so not attempted further; the line is not sold on Amazon by Micro Center (Amazon search found only Inland PLA+, PLA+ High Speed and PLA Basics) and no Inland TDS PDF exists; kept values could not be re-checked against the live page
+- **Hatchbox (all lines) - bed temps, density, drying, HDT** - Hatchbox FAQ says no technical data is available for their filaments; product pages give only print temperature, +/-0.03, and 'no heated bed required' for PLA/PETG/TPU.
+- **Hatchbox PLA/PETG/ABS material (info) pages** - Not reached: hatchbox3d.com HTML pages and collection .atom feeds returned client errors/rate limits; only product .js endpoints were readable.
+- **Anycubic TPU 68D** - drying temp/time, HDT, Vicat, max volumetric speed, diameter tolerance not published (page fields blank)
+- **Anycubic PVA** - max volumetric speed and HDT printed as '/'; diameter tolerance not published
+- **Anycubic PET-CF** - diameter tolerance not published
+- **Anycubic PLA Silk Dual/Tri-Color** - diameter tolerance not published; diameter only via FAQ compatibility statement
+- **All 8 Anycubic lines** - TDS PDFs not obtainable: page download buttons expose no URLs to WebFetch; values come from official product-page spec tables instead
+
+### R3
+
+- **Push Plastic High Heat+Tough PLA:** the annealing conflict note was not found. Only other brands' annealing guidance turned up (e.g. 3D-Fuel Tough Pro PLA+ at 110-120 °C), and I did not borrow it.
+- **Push Plastic (all 14 lines):** I did not get a complete colour list per line. Confirmed colours: Nylon Black/Natural/White; CF lines Black.
+- **Push Plastic Carbon Fiber PETG:** nozzle and bed are unconfirmed because the block label was not visible (see the entry).
+- **Atomic FR15U:** I have resin data only. The filament-level HDT has not been published.
+- **Fiberlogy:** official diameter tolerance and ovality are not published on brand pages (only reseller copies, ±0.02/+0.01). The ASA+AF aramid percentage is not published. max_volumetric_speed is not published. Tg for ABS, ASA, PA, PCTG, CPE and PP lines is not on the pages (they give Vicat/HDT). I did not attempt the image-only TDS PDFs.
+- **Extrudr (DuraPro ASA Matte; diameter and drying for all 26 lines):** not reached (budget).
+- **Spectrum (diameter and tolerance for all lines; HDT rows; PLA Premium shop check):** not reached (budget).
+- **QIDI Tech (PLA Rapido Metal, PLA Wood, ABS Rapido Metal, PLA Silk, PLA Rapido, ABS Rapido):** not reached (budget).
+- **Flashforge PETG-CF page HDT (reported 74 °C):** not read. Note that 74 °C is also the HDT in the original PETG TDS, so it may be a carry-over.
+- **Flashforge "other possible lines" (glow, wood, marble, galaxy, etc.):** not attempted. The flashforge.com menu does show additional lines: PLA Multicolor (Burnt Titanium), HS PETG Metallic, ASA-CF, PET-CF and PET-GF.
+- **Flashforge PLA/PLA Pro/Matte/Silk/PLA-CF/PETG/PETG-CF/ABS/ABS Pro/TPU/PC/PVA:** single-value density, colours, and confirmation that PC/PVA are still sold were not reached.
+- **GEEETECH Carbon Fiber PLA; Matte PLA/PLA+/PETG/PETG Metal/ABS+/ASA/Luminous/Marble; Silk Dual/Tri-Color:** not reached.
+- **SOVOL TPU and PLA Matte Rainbow:** temperatures are not published as text by Sovol (image-only on sovol.tech).
+- None confirmed. The Fiberlogy S1-spool ABS SKU is marked "LAST ITEMS! … old-style spool… not compatible with the BambuLab AMS". Only that spool format is ending; the ABS line continues on S2/S3 spools, which Fiberlogy says are AMS-compatible.
+
+### R4
+
+- **CarbonX PEI 1010+CF:** density and HDT are not in any source read this run. The official TDS (CarbonX_CF_Ultem_TDS_v3.pdf) is on the hub, but it could not be fetched.
+- **ThermaX PEI 9085:** density and HDT not retrieved (THERMAX_PEI_9085_TDS_v4.pdf not read). The only official value found is drying, 130C 4-6h.
+- **Firewire FR-PC/ABS:** density, Tg and HDT not retrieved. The only official value found is drying, 80C 6h.
+- **3DXTech PC/ASA:** no print or thermal values retrieved. An older official drying page gives a 110C max for 4h.
+- **HyperLite PP, EVOLV3D OBC, FibreX PP GF30, ThermaX TPI (EXTEM), ThermaX PEKK-C:** the TDS PDFs are listed on the official hub but could not be read. The only densities found were secondary and unverified: HyperLite PP 0.81, FibreX PP+GF30 1.12, TPI 1.3.
+- **CarbonX PEKK-A CF15:** only secondary data. A GitHub PR reports nozzle 360-390C, bed 120-140C and density 1.33. All3DP gives Tg 160 and HDT 150. The official drying value is 120C 6-8h.
+- **ThermaX PEEK GF20 (FibreX PEEK+GF20):** the official page gives hardened steel with a 0.4mm minimum nozzle and drying 130C 4h. The drying table says 150C 3h. Nozzle/bed (375-410 / 130-145) and density 1.44 are secondary only.
+- **ECOMAX PLA:** 3DXTech still has a live "ECOMAX® TOUGH PLA" product page (3dxtech.com/products/ecomax-r-tough-pla; SKU PLA04UN100750GY02; black, dark grey and white; 750 g; "Bambu AMS compatible"; "Ideal for printing without a heated bed, no enclosure required"), which confirms the ECOMAX → Tough PLA mapping. Its print temperatures were not retrieved, so no entry was written; the drying table lists "Tough PLA" at 65C 4h. 3DXTech also sells a separate "Economy PLA" (190-220C nozzle, 23-60C bed, drying 45C 4h).
+- **Value-only gaps that remain:** ThermaX PEEK tolerance; ESD-PLA tolerance; Obsidian PA6+CF Tg and tolerance; HTS1 bed range beyond "up to 160C" and tolerance; ESD-PEI Tg/HDT; ESD-TPU density; ESD-ABS official nozzle/bed (not verified this run).
+- AmideX PA6-GF30 is now FibreX Nylon 6+GF30. Its entry is written under the legacy name.
+- AmideX PA6 Copolymer is now AmideX Nylon 6-66. Its entry is written under the legacy name, and the mapping is inferred.
+- Obsidian PA6+CF is now Obsidian Nylon 6+CF V2, a reformulation. The entry uses V2 data.
+- ECOMAX PLA is still listed as ECOMAX® Tough PLA (confirmed on the official product page). No entry was written because its print temperatures were not retrieved.
+
+### R5
+
+- **Kexcelled K8 PP:** listed in Kexcelled's Functional collection, but no product page, TDS or reseller values were found. Do not confuse it with K8 OBC (210–250 °C, density 0.90–0.92).
+- **Kexcelled K8 TPU Matte:** no published values. Kexcelled's news post "Kexcelled Announces Groundbreaking Material Launches at Formnext 2025" names it "THE K8™ TPU 95A Matte", built on its "proven 95A formulation", not 90A.
+- **Kexcelled K5 PETG ESD:** Kexcelled sells it as K6 PETG ESD; no published values found.
+- **Kexcelled K5 ABS Pro:** no product by this name exists in Kexcelled's listings; the item may mean plain K5 ABS. Not filled pending clarification.
+- **Kexcelled catalogue / product pages:** kexcelled3d.com pages are now reachable through search results (e.g., K9 PC FR: density 1.18–1.20, spool heat-resistant to 70 °C, White/Black). A full colour/AMS refresh was not done.
+- **Kexcelled K5 PLA Magic / Color Change / Gradient / Streams / Coffee / Tea; K5 ABS Color Change; K9 PEBA; K6 UCM 300; soft TPU 60A–80A; K11/K12 PEEK, PEEK PRO, PEEK CF10, PEEK GF10, PEEK Ultra, PEKK, PPSU, PEI 1010, PEI 9085:** not reached (budget).
+- **Formfutura EasyFil PLA, ReForm Organic rPLA, AthenaX GF10, BioFil PCL, COMPOST3D 2, all LUVOCOM 3F grades (PAHT 9936/9825/CF 9891/CF 9742/KK 50056 FR, PP CF 9928, PPS CF 9938, PEKK 50082, PEEK 9581, PEEK CF 9676, PEI 50236, PEI ULTEM 1010/9085, PPSU):** not reached (budget). For AthenaX GF10, only third-party values were seen (250–290 °C / 85–100 °C), not used.
+- **Amazon Basics PLA (both lines):** not filled; no first-party temperature, density or tolerance source was reachable.
+- **Discontinued (likely):** ColorFabb HT. The category returns 404 and HT Clear has no product page; the TDS remains in the download folder.
