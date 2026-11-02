@@ -43,7 +43,8 @@ No `python` on PATH here; use the launcher.
 
 ```
 py -3.10 -I tools/validate.py                       # every entry (or pass files)
-py -3.10 -I tools/import_batch.py reply.json        # add/update from a Research reply; --dry-run to preview
+py -3.10 -I tools/import_batch.py reply.json        # add/update from a Research reply; --dry-run to preview,
+                                                    # --merge to lay a partial refresh over the existing entry
 py -3.10 -I tools/build_index.py                    # rebuild index.json (import_batch does this)
 ```
 
