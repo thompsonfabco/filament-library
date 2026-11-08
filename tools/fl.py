@@ -13,7 +13,7 @@ REQUIRED = [k for k in TOP_KEYS if k not in PARENT_KEYS]
 FIELD_KEYS = ["nozzle_temperature_range_low", "nozzle_temperature_range_high", "filament_density",
               "filament_diameter", "filament_soluble", "filament_is_support", "filament_shrink",
               "filament_max_volumetric_speed"]
-# filament_shrink is not in the handoff doc's list: the seed records published shrink ranges under it.
+# filament_shrink: the seed records published shrink ranges under it.
 RANGE_KEYS = ["bed_all_plates", "cool_plate_temp", "hot_plate_temp", "textured_plate_temp", "chamber_temperatures",
               "fan_max_speed", "fan_min_speed/fan_max_speed", "filament_retraction_length",
               "filament_retraction_speed", "overhang_fan_threshold", "filament_shrink"]

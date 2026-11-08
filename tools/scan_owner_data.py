@@ -15,7 +15,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # This file and its test hold the banned forms; LICENSE is the GPL's own text.
 SKIP = {"LICENSE", "tools/scan_owner_data.py", "tools/test_checks.py"}
 
-BANNED = re.compile(r"localdomain|spoolman-vm|h2d_token|h2d-scanner|sv08(?!\d)|[A-Za-z]:\\(?:CODING|Users)\b|\bG:\\",
+# Local paths: one backslash, the doubled form JSON stores, forward slashes, and WSL and Git Bash mounts.
+BANNED = re.compile(r"localdomain|spoolman-vm|h2d_token|h2d-scanner|sv08(?!\d)"
+                    r"|\b[A-Za-z]:[\\/]{1,2}(?:CODING|Users)\b|\bG:[\\/]|/mnt/[a-z]/|(?<![\w./-])/[a-z]/(?:CODING|Users)\b",
                     re.I)
 ALLOWED_ACCOUNT_PATHS = ("github.com/thompsonfabco/filament-kit", "thompsonfabco/filament-kit",
                          "github.com/thompsonfabco/filament-library", "thompsonfabco/filament-library")

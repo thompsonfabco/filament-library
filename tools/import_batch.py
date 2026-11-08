@@ -1,6 +1,6 @@
 """Import a Research-mode reply: `py -3 -I tools/import_batch.py <file> [--dry-run]`.
 
-<file> holds a JSON array of entries in the handoff format, or the pasted reply itself (the first ```json
+<file> holds a JSON array of entries in the schema's format, or the pasted reply itself (the first ```json
 block is used). Each entry is validated, then written to library/<vendor>/<product>.json:
 - added: no file yet; updated: the file differs; unchanged: identical apart from `updated`;
 - rejected: fails validation, repeats a line already in this batch, or names an existing file's line with

@@ -76,8 +76,14 @@ class Scan(unittest.TestCase):
 
     def test_host_and_path_words(self):
         for line in ("printer.localdomain", "the SV08 MAX generator", r"Source: C:\CODING\x\specs.json", r"G:\x",
-                     "https://thompsonfabco.example/x"):
+                     "https://thompsonfabco.example/x",
+                     r'"Source: C:\\CODING\\x\\specs.json"', r'"D:\\Users\\me"', r"E:\Users\me",
+                     "C:/CODING/x/specs.json", "G:/Users/me", "G:/x", "/mnt/c/CODING/x", "/mnt/d/x",
+                     "/c/CODING/x", "see /g/Users/me"):
             self.assertFlags(line)
+        for line in ("https://example.com/a/Users/guide.pdf", "https://example.com/c/CODING/x", "PNG:/x",
+                     "https://example.com/mount/c/x"):
+            self.assertClean(line)
         self.assertClean("https://github.com/thompsonfabco/filament-kit and thompsonfabco/filament-library")
 
     def test_scan_reads_files_and_reports_line_numbers(self):
