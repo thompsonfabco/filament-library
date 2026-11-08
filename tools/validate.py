@@ -1,4 +1,4 @@
-"""Validate library entries: `py -3.10 -I tools/validate.py [file.json ...]` (default: every file in library/).
+"""Validate library entries: `py -3 -I tools/validate.py [file.json ...]` (default: every file in library/).
 
 Also checks that each file sits at the path its vendor + product slug to, so one line never has two files.
 Exit status 1 if anything is invalid.

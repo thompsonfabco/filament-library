@@ -1,6 +1,6 @@
 # Seed conversion report (2026-11-01)
 
-Source: `<local path> (93 entries); parents from `<local path>
+Source: `specs.json` (93 entries); parents from `lines.py`.
 
 - Written: 93; rejected: 0; index library_version 1.
 
