@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "library_version": 3,
-  "generated": "2026-11-02",
+  "library_version": 4,
+  "generated": "2026-11-08",
   "count": 1115,
   "entries": [
     {
@@ -1433,8 +1433,8 @@
       "product": "ABS",
       "material": "ABS",
       "path": "library/cctree/abs.json",
-      "sha256": "3eb13c40f15d749af6a4edcf36ebf0b6511f1ab5a82752164550e715d3f5fbc8",
-      "updated": "2026-11-01"
+      "sha256": "31e3928cb6ce523bf0066f3c5ddf67c39b7f65ec4978fea07eff1cac9ae06a9f",
+      "updated": "2026-11-08"
     },
     {
       "vendor": "CHCKX",
@@ -3185,8 +3185,8 @@
       "product": "Wood PLA",
       "material": "PLA",
       "path": "library/esun/wood-pla.json",
-      "sha256": "d7a89af5615b8f030fc4e85fafca532c7e140fe686fc16332e0b30a68bd33932",
-      "updated": "2026-11-01"
+      "sha256": "4bf81269d9dfc5eea9c8985e116f09bb5198d6b44ac9ac9534272d2b00841360",
+      "updated": "2026-11-08"
     },
     {
       "vendor": "Extrudr",
@@ -4737,8 +4737,8 @@
       "product": "HIPS",
       "material": "HIPS",
       "path": "library/gizmo-dorks/hips.json",
-      "sha256": "e084f89c8f5869ef04cfad6de8bfd9633bb250c252a2c6b9f067e7698ca4f6d1",
-      "updated": "2026-11-01"
+      "sha256": "305fa605274cd32a1b943e7b4f06330faaa64c603f909f4fcdf191f86de84065",
+      "updated": "2026-11-08"
     },
     {
       "vendor": "Gizmo Dorks",
@@ -4905,8 +4905,8 @@
       "product": "PC-CF",
       "material": "PC-CF",
       "path": "library/iemai/pc-cf.json",
-      "sha256": "b8b59690f5e80635b4d61f6f6c23d02624fb2280246c86ed22495f00c766b220",
-      "updated": "2026-11-01"
+      "sha256": "faf6563ce4cf8cc39798a494c17e02d5f715119ca896c492514096e86bbe5592",
+      "updated": "2026-11-08"
     },
     {
       "vendor": "Inland",
@@ -5049,8 +5049,8 @@
       "product": "PLA",
       "material": "PLA",
       "path": "library/inland/pla.json",
-      "sha256": "8a9194af8a71f8df508e47dfb1a7c36a40d0351e1c1d59fe8dcb14a422cfae62",
-      "updated": "2026-11-01"
+      "sha256": "d142a6f5801dd7c3ac286f5a7d34e8f958fb2302e2730b547871e18262e98d32",
+      "updated": "2026-11-08"
     },
     {
       "vendor": "Inland",
@@ -5281,8 +5281,8 @@
       "product": "PLA",
       "material": "PLA",
       "path": "library/jayo/pla.json",
-      "sha256": "8acff0295ebbe808b50e51935229b5e61521630f9dc74dd1fd4e084af5b15fc8",
-      "updated": "2026-11-01"
+      "sha256": "74a07e10367d7d41c5ce2d0e2ac47aedbc12c8f0dcdd32024a1ed8d70372ab03",
+      "updated": "2026-11-08"
     },
     {
       "vendor": "JAYO",
@@ -7065,16 +7065,16 @@
       "product": "PETG",
       "material": "PETG",
       "path": "library/push-plastic/petg.json",
-      "sha256": "efd67d4af2fb265ab0a4b7823de9dca6623b14eab963618a4b03c6d4a6e9b6bf",
-      "updated": "2026-11-01"
+      "sha256": "9279a1df7ac69d61cd94f9c9ac1c333e04fd7c2b8964c6b62a1f60cf7026d4c6",
+      "updated": "2026-11-08"
     },
     {
       "vendor": "Push Plastic",
       "product": "PLA",
       "material": "PLA",
       "path": "library/push-plastic/pla.json",
-      "sha256": "4afd58478e4646b436aede0048849d1cdababf6a26418d97bc82cc3f0af33de4",
-      "updated": "2026-11-01"
+      "sha256": "f83867743bde8124336a18993eff77797a31f61842574479a620300b6b3f06f8",
+      "updated": "2026-11-08"
     },
     {
       "vendor": "Push Plastic",
@@ -8857,16 +8857,16 @@
       "product": "TPU",
       "material": "TPU",
       "path": "library/teqstone/tpu.json",
-      "sha256": "c19dedc57b02e131d157d7c413824c99aa866030322925ce3dde88b5f3686319",
-      "updated": "2026-11-01"
+      "sha256": "8a180b3142e7912966dc4c3061fa8218c854621f6f2c1eaa07eaa54683bb7eb8",
+      "updated": "2026-11-08"
     },
     {
       "vendor": "UJOYBIO",
       "product": "Metal PLA",
       "material": "PLA",
       "path": "library/ujoybio/metal-pla.json",
-      "sha256": "cc3f8da79d2a5fb5468d8b5547ab5619811f0fae67ec9224e7007b4f5653695f",
-      "updated": "2026-11-01"
+      "sha256": "ac8452a3fa4c737ae50557e23537d86cd1e509f8c496296a232d0b981c664c88",
+      "updated": "2026-11-08"
     },
     {
       "vendor": "XZN",
@@ -8881,16 +8881,16 @@
       "product": "Silk PLA",
       "material": "PLA",
       "path": "library/xzn/silk-pla.json",
-      "sha256": "8b1477536ab7eca9370ec31a2bdb0ba29117ea9a1b50e0b9520d0c7598350b5f",
-      "updated": "2026-11-01"
+      "sha256": "994f8640611b52d632e6c452e2a22e8ede5a0bcf5b5a76ccb78cfb8b4f695389",
+      "updated": "2026-11-08"
     },
     {
       "vendor": "XZN",
       "product": "TPU",
       "material": "TPU",
       "path": "library/xzn/tpu.json",
-      "sha256": "acb991048ef17745e1e4dd2dd27270f3ed362f72bfeedb579f65d46c80f7e152",
-      "updated": "2026-11-01"
+      "sha256": "be8c40a423cb54f22918e35402ad62354434c92b221bf6cbda7d7d0fb3063456",
+      "updated": "2026-11-08"
     },
     {
       "vendor": "yxpolyer",
