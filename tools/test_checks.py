@@ -74,6 +74,44 @@ class Scan(unittest.TestCase):
                      "Connection refused (ECONNREFUSED 5.149.162.4:443)"):
             self.assertClean(line)
 
+    def test_wording_that_says_someone_supplied_an_id_or_spool(self):
+        for line in ("The yellow ASIN the caller gave, B0AAAAAAAA, is a different product",
+                     "per the caller",
+                     "caller's UPC 012345678905 was not found",
+                     "caller ASIN B0AAAAAAAA",
+                     "The task table note says the listing once read 220C",
+                     "ASIN supplied by the customer",
+                     "listing provided by the maintainer",
+                     "sent by a buyer",
+                     "the ASIN they gave",
+                     "ASIN B0AAAAAAAA was provided",
+                     "UPC 012345678905 as given",
+                     "the given ASIN B0AAAAAAAA",
+                     "supplied the UPC",
+                     "B0AAAAAAAA was supplied",
+                     "B0AAAAAAAA, sent",
+                     "the spool was sent",
+                     "spool supplied by a shop",
+                     "the provided spool reads 200C",
+                     "handed a spool"):
+            self.assertFlags(line)
+
+    def test_supplied_wording_about_the_product_is_fine(self):
+        for line in ("Supplied on reusable AMS-compatible PC spool",
+                     "spools supplied with desiccant",
+                     "no drying temperature or time given). Reusable spool, AMS compatible",
+                     "Density 1.4 g/cm3 is also given in the comparison table",
+                     "search index gave no temperatures",
+                     "Amazon B0AAAAAAAA gave 200-220C in a snippet",
+                     "No UPC given on the page",
+                     "Given the ASIN mismatch, the page was used",
+                     "given the spool size, 650 g",
+                     "datasheet provided by the manufacturer",
+                     "the listing once gave 220-280C",
+                     "Amazon listing B0AAAAAAAA (Yellow) is a different product",
+                     "These values do not apply to Silk Glow."):
+            self.assertClean(line)
+
     def test_host_and_path_words(self):
         for line in ("printer.localdomain", "the SV08 MAX generator", r"Source: C:\CODING\x\specs.json", r"G:\x",
                      "https://thompsonfabco.example/x",

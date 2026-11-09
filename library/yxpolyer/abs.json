@@ -29,7 +29,7 @@
     "_enclosure": "Sibling Clear ABS listing: 'Indoor-Friendly for Enclosed Printers'"
   },
   "conflicts": [
-    "[pass 4] Task table listing note says 210-260C; yxpolyer.com product pages and the current Amazon listing say 220C as the low end. 220-260C used.",
+    "[pass 4] An undated earlier listing note says 210-260C; yxpolyer.com product pages and the current Amazon listing say 220C as the low end. 220-260C used.",
     "[pass 4] Tolerance +/-0.04 mm comes from the page meta description only.",
     "[merge] published_ranges._max_print_speed: pass 6 value \"200 mm/s (up to)\" replaced earlier value \"200\"",
     "[merge] published_ranges._notes: pass 6 value \"Low odor ABS. PC spool supports high-temperature drying. Brand comparison table rates ABS moisture absorption 'Medium'.\" replaced earlier value \"yxpolyer.com: 'Recommended print temperature: 220-260C; bed temperature: 100-110C'; 'prints easily from 220C and supports speeds up to 200 mm/s'. Low-odor ABS+, AMS compatible, PC spool 'supports high-temperature drying' (no drying values). No density published.\"",

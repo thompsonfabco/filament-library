@@ -4,8 +4,9 @@ The library is public and filament-kit ships it. Three kinds of check, per line 
 - banned words: private host and path words, and the repo owner's account name outside the repository's own paths;
 - owner values: private addresses, serials and account names, compared by salted SHA-256 fingerprint so this
   file does not publish them (same salt and list as filament-kit's server/tests/test_readme.py);
-- purchase records: wording that attributes something to a person ("the user's", "user ASIN"), and an ASIN, UPC or
-  date next to purchase wording. A bare ASIN or UPC is fine, since listing URLs and listing notes are real sources.
+- purchase records: wording that attributes something to a person ("the user's", "user ASIN"), wording that says
+  someone supplied an id or a spool ("ASIN supplied by", "the spool was sent"), and an ASIN, UPC or date next to
+  purchase wording. A bare ASIN or UPC is fine, since listing URLs and listing notes are real sources.
 Exit status 1 if anything is found.
 """
 import hashlib, os, re, subprocess, sys
@@ -39,6 +40,20 @@ IDENTIFIER = re.compile(r"\bB0[A-Z0-9]{8}\b|\b(?:UPC|EAN|GTIN)\D{0,5}\d{8,14}\b|
                         r"\b(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s+\d{1,2},?\s+20\d\d\b", re.I)
 NEARBY = 80
 
+# Someone said to have supplied an id or a spool. Sources supply values ("the listing gave 200C", "datasheet provided
+# by the manufacturer") and products come supplied on spools; neither is matched here.
+_ID = r"(?:asin|upc|ean|gtin)s?"
+_ARTICLE = r"(?:(?:the|an?|this|that)\s+)?"
+SUPPLIED = re.compile(
+    rf"\bthe\s+caller\b|\bcaller['’]s\b|\bcaller[-\s]+(?:{_ID}|spools?|notes?)\b|\btask\s+table\b"
+    r"|\b(?:gave|given|supplied|sent|provided|handed)\s+by\s+(?:(?:the|an?)\s+)?"
+    r"(?:caller|request[eo]r|customer|buyer|maintainer)\b"
+    rf"|(?<!\bno\s)\b{_ID}\b(?:[\s,:]+[\w'’-]+){{0,3}}?[\s,:]+(?:gave|given|supplied|sent|provided|handed)\b"
+    rf"|\b(?:(?:gave|supplied|sent|provided|handed)\s+{_ARTICLE}|given\s+){_ID}\b"
+    r"|\bB0[A-Z0-9]{8}\b[\s,:)]+(?:(?:was|were)\s+)?(?:supplied|sent|provided|handed)\b"
+    r"|\bspools?\s+(?:(?:was|were)\s+)?(?:sent|given|handed|(?:supplied|provided)\s+(?:by|to|for)\b)"
+    rf"|\b(?:(?:gave|supplied|sent|provided|handed)\s+{_ARTICLE}|given\s+)spools?\b", re.I)
+
 
 def line_problems(line):
     """What is wrong with one line of text (empty = nothing)."""
@@ -52,6 +67,7 @@ def line_problems(line):
               if hashlib.sha256(_OWNER_SALT + t.encode()).hexdigest()[:20] in OWNER_FINGERPRINTS}:
         out.append("owner value (fingerprint match)")   # never echoed
     out += [f"attribution wording {m.group(0)!r}" for m in ATTRIBUTION.finditer(line)]
+    out += [f"supplied-by wording {m.group(0)!r}" for m in SUPPLIED.finditer(line)]
     for m in IDENTIFIER.finditer(line):
         window = line[max(0, m.start() - NEARBY):m.end() + NEARBY]
         word = PURCHASE.search(window)
