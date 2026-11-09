@@ -23,7 +23,7 @@
   "conflicts": [
     "[pass 4] Seller 'Silver AM' (seller on all yxpolyer listings; yxpolyer.com contact is @silverage.cn).",
     "[pass 4] The nozzle low value is an 'as low as 220C' statement, not the low end of a published range; no upper bound is published.",
-    "[pass 4] yxpolyer.com blog post (a user test report on the brand's own blog) quotes the listing as saying dry 80C 6h and a 220-260C range with bed topping out at 100C; these values are not on any current listing or product page, so they are not used. The task table note says the listing once gave 220-280C, bed 80-100C; also not on the current listing.",
+    "[pass 4] yxpolyer.com blog post (a user test report on the brand's own blog) quotes the listing as saying dry 80C 6h and a 220-260C range with bed topping out at 100C; these values are not on any current listing or product page, so they are not used. An undated earlier note says the listing once gave 220-280C, bed 80-100C; also not on the current listing.",
     "[pass 4] Blue ASIN B0FS6BYM4R now redirects to yxpolyer PA6-GF Black (B0F5QH7W4T); its values were not used. Blue is covered by yxpolyer.com/products/nylon-pa6-blue.",
     "[pass 4] yxpolyer.com pages also claim '1612 MPa flexural strength', which is implausible for PA6; ignored."
   ],
