@@ -1,8 +1,8 @@
-"""Rebuild index.json from library/: `py -3.10 -I tools/build_index.py`.
+"""Rebuild index.json from library/: `py -3 -I tools/build_index.py`.
 
-index.json is what installed filament-kit servers poll. `library_version` goes up by one (and `generated` is
-set to today) only when the entry list or a file's sha256 changed, so an unchanged library rebuilds to an
-identical index.
+index.json goes into filament-kit's release asset, which is how installs get the library. `library_version` goes
+up by one (and `generated` is set to today) only when the entry list or a file's sha256 changed, so an unchanged
+library rebuilds to an identical index.
 """
 import hashlib, json, os, sys
 

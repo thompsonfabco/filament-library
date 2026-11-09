@@ -1,6 +1,6 @@
-"""One-time seed: convert filament-ops/specs.json into library/ entries.
+"""One-time seed: convert an earlier specs.json into library/ entries.
 
-    py -3.10 -I tools/convert_specs.py [specs.json] [lines.py]
+    py -3 -I tools/convert_specs.py <specs.json> <lines.py>
 
 Both inputs are only read. Changes from the old format (nothing is invented):
 - fields.temperature_vitrification -> published_ranges._vitrification ("63 (Vicat)", metric from
@@ -18,8 +18,6 @@ import ast, json, os, sys, urllib.parse
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import fl, build_index
-
-DEFAULT_DIR = r"<local path>"
 
 
 def load_lines(path):
@@ -90,8 +88,9 @@ def convert(old, parents, report):
 
 
 def main(argv):
-    specs = argv[0] if argv else os.path.join(DEFAULT_DIR, "specs.json")
-    lines = argv[1] if len(argv) > 1 else os.path.join(DEFAULT_DIR, "lines.py")
+    if len(argv) != 2:
+        raise SystemExit(__doc__)
+    specs, lines = argv
     with open(specs, encoding="utf-8") as fh:
         old = json.load(fh)
     parents = load_lines(lines)
@@ -111,7 +110,7 @@ def main(argv):
     version, _ = build_index.build()
 
     out = [f"# Seed conversion report ({fl.today()})", "",
-           f"Source: `{specs}` ({len(old)} entries); parents from `{lines}`.", "",
+           f"Source: `{os.path.basename(specs)}` ({len(old)} entries); parents from `{os.path.basename(lines)}`.", "",
            f"- Written: {len(old) - len(report['invalid'])}; rejected: {len(report['invalid'])}; "
            f"index library_version {version}.", ""]
     for key, title in (("invalid", "Rejected (failed validation)"),

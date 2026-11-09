@@ -1,0 +1,41 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4.3.1
+        with:
+          fetch-depth: 0          # check_paths.py reads every earlier index.json
+          persist-credentials: false
+      # The kit's validator decides what installs accept. Lockstep: a kit release that accepts a new rule -> bump this
+      # ref -> change the data -> the kit picks up the new library.
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4.3.1
+        with:
+          repository: thompsonfabco/filament-kit
+          ref: v0.4.0
+          path: .kit
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065  # v5.6.0
+        with:
+          python-version: "3.12"
+      - name: Tool tests
+        run: python -I -m unittest discover -s tools -p "test_*.py"
+      - name: Authoring validator
+        run: python -I tools/validate.py
+      - name: Kit validator, paths, hashes and index
+        run: python -I .kit/tools/build_library_asset.py --from . --out "$RUNNER_TEMP/library.tar.gz"
+      - name: Owner-data scan
+        run: python -I tools/scan_owner_data.py
+      - name: No path disappears between versions
+        run: python -I tools/check_paths.py

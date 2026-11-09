@@ -1,11 +1,11 @@
-"""Import a Research-mode reply: `py -3.10 -I tools/import_batch.py <file> [--dry-run]`.
+"""Import a Research-mode reply: `py -3 -I tools/import_batch.py <file> [--dry-run]`.
 
-<file> holds a JSON array of entries in the handoff format, or the pasted reply itself (the first ```json
+<file> holds a JSON array of entries in the schema's format, or the pasted reply itself (the first ```json
 block is used). Each entry is validated, then written to library/<vendor>/<product>.json:
 - added: no file yet; updated: the file differs; unchanged: identical apart from `updated`;
 - rejected: fails validation, repeats a line already in this batch, or names an existing file's line with
   different spelling (e.g. "Elegoo" vs "ELEGOO": fix the spelling in the batch and import again).
-A missing `updated` is set to today; a refresh that omits `bambu_parent` keeps the library's one.
+A missing `updated` is set to today; a refresh that omits `bambu_parent` or `orca_parent` keeps the library's one.
 --merge: a refresh is laid over the library entry instead of replacing it (for gap-fill replies that
 only carry the values they re-read): batch values win, keys it omits are kept, colors/sources/conflicts
 are unioned, the old `_notes` are appended, a changed field is recorded in `conflicts`, and a missing
@@ -82,8 +82,9 @@ def main(argv):
             if (old["vendor"], old["product"]) != (e["vendor"], e["product"]):
                 result["rejected"].append(f"{label}: {rel} already holds '{old['vendor']} {old['product']}'")
                 continue
-            if "bambu_parent" not in e and "bambu_parent" in old:
-                e["bambu_parent"] = old["bambu_parent"]
+            for k in fl.PARENT_KEYS:
+                if k not in e and k in old:
+                    e[k] = old[k]
             same = {k: v for k, v in old.items() if k != "updated"} == {k: v for k, v in e.items() if k != "updated"}
             kind = "unchanged" if same else "updated"
         result[kind].append(f"{label} -> {rel}")

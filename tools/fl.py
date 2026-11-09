@@ -6,17 +6,19 @@ LIBRARY = os.path.join(ROOT, "library")
 INDEX = os.path.join(ROOT, "index.json")
 SCHEMA_VERSION = 1
 
-TOP_KEYS = ["schema_version", "vendor", "product", "material", "colors", "bambu_parent", "fields",
+TOP_KEYS = ["schema_version", "vendor", "product", "material", "colors", "bambu_parent", "orca_parent", "fields",
             "published_ranges", "conflicts", "source_quality", "sources", "updated"]
-REQUIRED = [k for k in TOP_KEYS if k != "bambu_parent"]
+PARENT_KEYS = ("bambu_parent", "orca_parent")  # optional; orca_parent = OrcaFilamentLibrary base name
+REQUIRED = [k for k in TOP_KEYS if k not in PARENT_KEYS]
 FIELD_KEYS = ["nozzle_temperature_range_low", "nozzle_temperature_range_high", "filament_density",
               "filament_diameter", "filament_soluble", "filament_is_support", "filament_shrink",
               "filament_max_volumetric_speed"]
-# filament_shrink is not in the handoff doc's list: the seed records published shrink ranges under it.
+# filament_shrink: the seed records published shrink ranges under it.
 RANGE_KEYS = ["bed_all_plates", "cool_plate_temp", "hot_plate_temp", "textured_plate_temp", "chamber_temperatures",
               "fan_max_speed", "fan_min_speed/fan_max_speed", "filament_retraction_length",
               "filament_retraction_speed", "overhang_fan_threshold", "filament_shrink"]
 SOURCE_QUALITY = ["official_tds", "official_page", "brand_amazon_listing", "reseller_tds_copy"]
+_DATE = re.compile(r"\d{4}-\d{2}-\d{2}")  # fromisoformat alone takes other forms on Python 3.11+; the kit does not
 
 
 def today():
@@ -71,8 +73,14 @@ def _num(v):
         return None
 
 
+def _first(f, key):
+    v = f.get(key)
+    return v[0] if isinstance(v, list) and v else None
+
+
 def validate(entry):
-    """List of problems with one entry (empty = valid)."""
+    """List of problems with one entry (empty = valid). filament-kit's library.validate gives the same answers;
+    the library's CI runs that one too (README, Checks)."""
     if not isinstance(entry, dict):
         return ["entry is not a JSON object"]
     errs = []
@@ -84,11 +92,13 @@ def validate(entry):
             errs.append(f"unknown top-level key '{k}'")
     if "schema_version" in entry and entry["schema_version"] != SCHEMA_VERSION:
         errs.append(f"schema_version must be {SCHEMA_VERSION}")
-    for k in ("vendor", "product", "material", "bambu_parent"):
+    for k in ("vendor", "product", "material", *PARENT_KEYS):
         if k in entry and not (isinstance(entry[k], str) and entry[k].strip()):
             errs.append(f"'{k}' must be a non-empty string")
     if isinstance(entry.get("bambu_parent"), str) and "@" in entry["bambu_parent"]:
         errs.append("bambu_parent must not carry an '@<printer>' suffix")
+    if isinstance(entry.get("orca_parent"), str) and "@" in entry["orca_parent"]:
+        errs.append("orca_parent must not carry an '@' suffix (give the base name, without ' @System')")
     for k in ("vendor", "product"):
         if isinstance(entry.get(k), str) and not slug(entry[k]):
             errs.append(f"'{k}' has no filesystem-safe characters")
@@ -103,11 +113,16 @@ def validate(entry):
             errs.append("at least one source is required")
         else:
             for s in src:
-                u = urllib.parse.urlparse(s) if isinstance(s, str) else None
+                try:
+                    u = urllib.parse.urlparse(s) if isinstance(s, str) else None
+                except ValueError:
+                    u = None
                 if not (u and u.scheme in ("http", "https") and u.netloc):
                     errs.append(f"source is not an http(s) URL: {s!r}")
     if "updated" in entry:
         try:
+            if not (isinstance(entry["updated"], str) and _DATE.fullmatch(entry["updated"])):
+                raise ValueError
             datetime.date.fromisoformat(entry["updated"])
         except (TypeError, ValueError):
             errs.append("updated must be a YYYY-MM-DD date")
@@ -116,7 +131,8 @@ def validate(entry):
     if "fields" in entry and not isinstance(f, dict):
         errs.append("fields must be an object")
         f = {}
-    for k, v in (f or {}).items():
+    f = f if isinstance(f, dict) else {}
+    for k, v in f.items():
         if k == "temperature_vitrification":
             errs.append("fields.temperature_vitrification is not allowed (Bambu's heat-creep threshold, not Tg); "
                         "put Tg/Vicat/HDT in published_ranges._vitrification/_vicat/_hdt_0.45MPa")
@@ -147,8 +163,8 @@ def validate(entry):
         elif k == "filament_max_volumetric_speed":
             if x is None or not 0 < x <= 100:
                 errs.append(f"fields.filament_max_volumetric_speed {s!r} must be a number in (0, 100] mm3/s")
-    lo = _num((f or {}).get("nozzle_temperature_range_low", [None])[0]) if isinstance(f, dict) else None
-    hi = _num((f or {}).get("nozzle_temperature_range_high", [None])[0]) if isinstance(f, dict) else None
+    lo = _num(_first(f, "nozzle_temperature_range_low"))
+    hi = _num(_first(f, "nozzle_temperature_range_high"))
     if lo is not None and hi is not None and lo > hi:
         errs.append(f"nozzle range low {lo:g} is above high {hi:g}")
 
@@ -156,7 +172,7 @@ def validate(entry):
     if "published_ranges" in entry and not isinstance(pr, dict):
         errs.append("published_ranges must be an object")
         pr = {}
-    for k, v in (pr or {}).items():
+    for k, v in (pr if isinstance(pr, dict) else {}).items():
         if not (k.startswith("_") or k in RANGE_KEYS):
             errs.append(f"unknown published_ranges key '{k}' (note keys must start with '_')")
         if not (isinstance(v, str) and v.strip()):
