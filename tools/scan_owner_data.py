@@ -21,7 +21,8 @@ BANNED = re.compile(r"localdomain|spoolman-vm|h2d_token|h2d-scanner|sv08(?!\d)"
                     r"|\b[A-Za-z]:[\\/]{1,2}(?:CODING|Users)\b|\bG:[\\/]|/mnt/[a-z]/|(?<![\w./-])/[a-z]/(?:CODING|Users)\b",
                     re.I)
 ALLOWED_ACCOUNT_PATHS = ("github.com/thompsonfabco/filament-kit", "thompsonfabco/filament-kit",
-                         "github.com/thompsonfabco/filament-library", "thompsonfabco/filament-library")
+                         "github.com/thompsonfabco/filament-library", "thompsonfabco/filament-library",
+                         "ko-fi.com/thompsonfabco")
 
 _OWNER_SALT = b"filament-kit owner-data v1:"
 OWNER_FINGERPRINTS = frozenset({
