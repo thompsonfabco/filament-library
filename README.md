@@ -1,3 +1,5 @@
+If you enjoy what I do, consider supporting me! Every little bit means the world! https://ko-fi.com/thompsonfabco
+
 # filament-library
 
 Published manufacturer specs for 3D-printer filament, one JSON file per **brand + product line**. It is the
